@@ -82,4 +82,22 @@ RSpec.describe "Todos", type: :request do
       end
     end
   end
+
+  # Test suite for PUT /todos/:id
+  describe 'PUT /todos/:id' do
+    let(:valid_attributes) { {title: 'Learn Elm', created_by: '1'} }
+
+    context 'when the record exist' do
+
+      before { put '/todos/#{todo_id}', params: valid_attributes }
+
+      it 'updates the record' do
+        expect(response.body).to be_empty
+      end
+
+      it 'returns a status code 204' do
+        expect(response).to have_http_status(204)
+      end
+    end
+  end
 end
