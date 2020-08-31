@@ -29,8 +29,9 @@ RSpec.describe "Todos", type: :request do
 
     context 'when the record exist' do
       it 'returns the todo item' do
+        p self.json['id']
         expect(json).not_to be_empty
-        expect(json[:id]).to eq(todo_id)
+        expect(json['id']).to eq(todo_id)
       end
 
       it 'returns status code 200' do
@@ -61,7 +62,7 @@ RSpec.describe "Todos", type: :request do
 
 
       it 'creates a todo' do
-        expect(json[:title]).to eq('Learn Elm')
+        expect(json['title']).to eq('Learn Elm')
       end
 
       it 'returns status code of 201' do
@@ -78,7 +79,7 @@ RSpec.describe "Todos", type: :request do
       end
 
       it 'returns a valiation failure message' do
-        expect(response.body).to match(/validation failed: Created by can't be blank/)
+        expect(response.body).to match(/"{"validation failed": "Created by can't be blank"}"/)
       end
     end
   end
@@ -89,7 +90,7 @@ RSpec.describe "Todos", type: :request do
 
     context 'when the record exist' do
 
-      before { put '/todos/#{todo_id}', params: valid_attributes }
+      before { put "/todos/#{todo_id}", params: valid_attributes }
 
       it 'updates the record' do
         expect(response.body).to be_empty
