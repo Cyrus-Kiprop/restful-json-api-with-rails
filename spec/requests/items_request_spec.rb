@@ -106,6 +106,7 @@ RSpec.describe "Items", type: :request do
         expect(updated_item.name).to match(/Mozart/)
       end
     end
+
      context 'when the item does not exist' do
       let(:id) { 0 }
 
@@ -116,6 +117,15 @@ RSpec.describe "Items", type: :request do
       it 'returns a not found message' do
         expect(response.body).to match(/Couldn't find Item/)
       end
+    end
+  end
+
+  # Test suite for DELETE /todos/:id
+  describe 'DELETE /todos/:id' do
+    before { delete "/todos/#{todo_id}/items/#{id}" }
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
     end
   end
 
